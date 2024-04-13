@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Донат</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #9FA8DA, #E6B0AA);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+        form {
+            display: flex;
+            margin-bottom: 1rem;
+            flex-direction: column;
+        }
+        .donation-container {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            padding: 2rem;
+            color: #333;
+        }
+        .donation-container h2 {
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            flex: 1;
+            margin-right: 10px;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            display: none;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color .3s;
+        }
+        .form-group input:focus {
+            border-color: #a777e3;
+            outline: none;
+        }
+        .form-group input[type="submit"] {
+            padding: 1rem;
+            background-color: #6e8efb;
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #5a7be6;
+        }
+        .icon-container {
+            position: absolute;
+            left: 15px;
+            top: 35%;
+            color: #ced4da;
+            font-size: 1.1rem;
+        }
+        .form-group input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        .form-group input[type="number"]::-webkit-inner-spin-button,
+        .form-group input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .form-group input[type="text"]:not(:last-child),
+        .form-group input[type="number"] {
+            padding-left: 2.5rem;
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="donation-container">
+        <h2>Пожертвование</h2>
+        <form id="donationForm">
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Введите почту" required>
+                <i class="fas fa-email icon-container"></i>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="text" id="username" placeholder="Введите ваше имя" required>
+                    <i class="fas fa-user icon-container"></i>
+                </div>
+                <div class="form-group">
+                    <input type="number" id="amount" placeholder="Введите сумму" required min="1" step="1">
+                    <i class="fas fa-wallet icon-container"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" id="description" placeholder="Введите комментарий" required>
+                <i class="fas fa-comment icon-container"></i>
+            </div>
+            <div class="form-group"><input type="submit" value="Пожертвовать"></div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById('donationForm');
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const username = document.getElementById('username').value;
+                const email = document.getElementById('email').value;
+                const amount = document.getElementById('amount').value;
+                const description = document.getElementById('description').value;
+
+                const data = {
+                    email: email,
+                    username: username,
+                    description: description,
+                    amount: amount,
+                };
+
+                fetch('/payment', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                  console.log('Success:', data);
+                  if (data.pay_url) {
+                    window.location.href = data.pay_url;
+                  }
+                })
+                .catch((error) => {
+                  console.error('Error:', error);
+                });});
+
+            const textInputs = document.querySelectorAll('input[type="text"]');
+            textInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.value.startsWith(' ')) {
+                        this.value = this.value.trimStart();
+                        this.setSelectionRange(0, 0);
+                    }
+                });});
+
+            const amountInput = document.getElementById('amount');
+            amountInput.addEventListener('keypress', function(event) {
+                if (!event.key.match(/[0-9]/)) {
+                    event.preventDefault();
+                }});
+        });
+    </script>
+</body>
+</html>

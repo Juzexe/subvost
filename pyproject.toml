@@ -1,0 +1,32 @@
+[project]
+name = "subvost_payment"
+version = "0.1.0"
+dependencies = [
+    "fastapi",
+    "jinja2",
+
+    "alembic",
+    "sqlalchemy",
+    "aiosqlite",
+    "asyncpg",
+
+    "httpx",
+    "passlib",
+    "python-jose",
+    "python-multipart",
+    "pydantic-settings",
+
+    "uvicorn",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "python-dotenv",
+    "pytest",
+]
+
+[tool.ruff]
+line-length = 120
+lint.select = ["ALL"]
+lint.ignore = ["D1", "D211", "D212", "D213", "INP001", "DTZ001", "RUF001", "B008", "ISC001", "COM812", "B904", "B904", "ANN401", "ANN101", "FBT001", "S101", "PLR2004"]

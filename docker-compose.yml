@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres:15.2-alpine
+    environment:
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - 5432:5432
+    volumes: 
+      - db:/var/lib/postgresql/data
+  
+  server:
+    image: subvost_backend:latest
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      - DEBUG=True
+      - PROJECT_NAME=subvost_backend
+      - API_PREFIX=
+      - DB_URL=postgresql+asyncpg://postgres:secret@database:5432/postgres
+      - SECRET_KEY=d339c44d8b23c9886709879c1ce07bd1cf87a709e2adfc2bfa928390bbaf3b80
+      # place here valid project id for payment api
+      - PROJECT_ID=
+      - PAYMENT_MODE=1
+    depends_on:
+      - database
+
+      
+volumes:
+  db:
+networks:
+  default:
+    name: subvost-network
