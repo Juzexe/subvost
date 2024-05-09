@@ -15,16 +15,8 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: install python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-
-      - name: install uv
-        uses: yezz123/setup-uv@v4
-
-      - name: install deps
-        run: make install-dev-deps
+      - name: build
+        uses: ./.github/actions/build
 
       - name: lint
         run: ruff check --fix --unsafe-fixes --target-version py311 app
@@ -34,6 +26,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+
+      - name: build
+        uses: ./.github/actions/build
 
       - name: pyright
         uses: jakebailey/pyright-action@v2

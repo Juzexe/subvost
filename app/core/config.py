@@ -14,4 +14,4 @@ class Settings(BaseSettings):
         env_file = ".env"
 
 
-settings = Settings()  # pyright: ignore[reportGeneralTypeIssues]
+settings = Settings()  # pyright: ignore[reportCallIssue,reportGeneralTypeIssues]

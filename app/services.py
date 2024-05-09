@@ -50,7 +50,7 @@ async def get_payment_url(session: "AsyncSession", email: str, username: str, am
         "currency": "RUB",
         "customer": {
             "phone": user.phone if user else "",
-            "email": user.email if user else "",
+            "email": user.email if user else email,
         },
     }
     async with httpx.AsyncClient() as client:

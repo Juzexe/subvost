@@ -29,4 +29,25 @@ dev = [
 [tool.ruff]
 line-length = 120
 lint.select = ["ALL"]
-lint.ignore = ["D1", "D211", "D212", "D213", "INP001", "DTZ001", "RUF001", "B008", "ISC001", "COM812", "B904", "B904", "ANN401", "ANN101", "FBT001", "S101", "PLR2004"]
+lint.ignore = [
+    "D1",
+    "D211",
+    "D212",
+    "D213",
+    "INP001",
+    "DTZ001",
+    "RUF001",
+    "B008",
+    "ISC001",
+    "COM812",
+    "B904",
+    "B904",
+    "ANN401",
+    "ANN101",
+    "FBT001",
+    "S101",
+    "PLR2004",
+    "TD002",
+    "TD003",
+    "FIX002",
+]

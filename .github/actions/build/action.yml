@@ -1,0 +1,25 @@
+name: build
+
+runs:
+  using: composite
+
+  steps:
+    - name: install python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: install uv
+      uses: yezz123/setup-uv@v4
+      with:
+        uv-venv: "venv"
+
+    - name: install deps
+      run: make install-dev-deps
+      shell: bash
+
+    - name: prepare path
+      run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
+      shell: bash
+
+
