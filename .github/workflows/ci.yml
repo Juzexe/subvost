@@ -1,0 +1,39 @@
+name: CI
+
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: install uv
+        uses: yezz123/setup-uv@v4
+
+      - name: install deps
+        run: make install-dev-deps
+
+      - name: lint
+        run: ruff check --fix --unsafe-fixes --target-version py311 app
+
+  pyright:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: pyright
+        uses: jakebailey/pyright-action@v2
