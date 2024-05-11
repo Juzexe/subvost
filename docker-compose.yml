@@ -21,9 +21,10 @@ services:
       - API_PREFIX=
       - DB_URL=postgresql+asyncpg://postgres:secret@database:5432/postgres
       - SECRET_KEY=d339c44d8b23c9886709879c1ce07bd1cf87a709e2adfc2bfa928390bbaf3b80
-      # place here valid project id for payment api
-      - PROJECT_ID=
       - PAYMENT_MODE=1
+      # place here valid project id and secret key for payment api
+      - PAYMENT_SECRET_KEY=
+      - PAYMENT_PROJECT_ID=
     depends_on:
       - database
 

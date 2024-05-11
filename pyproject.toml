@@ -24,6 +24,8 @@ dev = [
     "ruff",
     "python-dotenv",
     "pytest",
+    "pytest_asyncio",
+    "pytest-mock",
 ]
 
 [tool.ruff]
@@ -50,4 +52,5 @@ lint.ignore = [
     "TD002",
     "TD003",
     "FIX002",
+    "DTZ005",
 ]

@@ -59,6 +59,11 @@ pydantic-core==2.18.1
     # via pydantic
 pydantic-settings==2.2.1
 pytest==8.1.1
+    # via
+    #   pytest-asyncio
+    #   pytest-mock
+pytest-asyncio==0.23.6
+pytest-mock==3.14.0
 python-dotenv==1.0.1
     # via pydantic-settings
 python-jose==3.3.0

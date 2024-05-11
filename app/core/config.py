@@ -7,7 +7,8 @@ class Settings(BaseSettings):
     api_prefix: str
     db_url: str
     secret_key: str
-    project_id: str
+    payment_secret_key: str
+    payment_project_id: str
     payment_mode: int
 
     class Config:

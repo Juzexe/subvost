@@ -23,3 +23,4 @@ class Payment(Base):
     amount: Mapped[float] = mapped_column()
     user_id: Mapped[int | None] = mapped_column(ForeignKey("users.id"))
     description: Mapped[str] = mapped_column()
+    status: Mapped[int | None] = mapped_column(default=0)
